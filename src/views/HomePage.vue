@@ -2,27 +2,43 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-title>QRCode Scanner</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
+          <ion-title size="large">Scanning Page</ion-title>
         </ion-toolbar>
       </ion-header>
 
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+      <ion-list>
+        <ion-item v-for="(barcode, index) in barcodes" v-bind:key="index">
+          <ion-label position="stacked">{{ barcode.format }}</ion-label>
+          <ion-input type="text" :value="barcode.rawValue"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button @click="home.scan()">
+          <ion-icon :icon="scan"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { HomePage } from '@/app/home/home.page';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonInput, IonFab, IonFabButton, IonIcon } from '@ionic/vue';
+import { scan } from 'ionicons/icons';
+import { Barcode } from '@capacitor-mlkit/barcode-scanning';
+import { ref } from 'vue';
+
+const barcodes = ref(Array<Barcode>());
+const home = new HomePage(barcodes.value);
 </script>
 
 <style scoped>
