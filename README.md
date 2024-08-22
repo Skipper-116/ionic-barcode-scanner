@@ -1,3 +1,7 @@
+## Ionic Barcode Scanner
+This is a sample project to use ionic to scan barcodes and qrcodes
+
+## Installation Instructions
 To install the Ionic CLI and run your app on Android and iOS, follow these steps:
 
 1. Install Node.js: 
